@@ -2,7 +2,7 @@
 falcon-provider-cache
 =====================
 
-|coverage| |code-style| |pre-commit|
+|build| |coverage| |code-style| |pre-commit|
 
 A falcon middleware cache provider using Memcache or Redis.
 
@@ -33,6 +33,9 @@ For caching enabled API endpoints the middleware will add the **X-Cache** header
 Requires
 --------
 * Falcon - https://pypi.org/project/falcon/
+
+Extra Requires
+--------------
 * falcon-provider-memcache - https://github.com/bcsummers/falcon-provider-memcache
 * falcon-provider-redis - https://github.com/bcsummers/falcon-provider-redis
 
@@ -171,7 +174,10 @@ For Memcache the default host is localhost and the default port is 11211. These 
 
     > pytest --cov=falcon_provider_cache --cov-report=term-missing tests/
 
-.. |coverage| image:: https://codecov.io/gh/bcsummers/falcon-provider-cache/branch/master/graph/badge.svg?token=prpmecioDm
+.. |build| image:: https://github.com/bcsummers/falcon-provider-cache/workflows/build/badge.svg
+    :target: https://github.com/bcsummers/falcon-provider-cache/actions
+
+.. |coverage| image:: https://codecov.io/gh/bcsummers/falcon-provider-cache/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/bcsummers/falcon-provider-cache
 
 .. |code-style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
