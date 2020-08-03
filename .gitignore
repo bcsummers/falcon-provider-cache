@@ -1,0 +1,53 @@
+#=================================================
+# Python Module Template
+#=================================================
+
+#-------------------------------------------------
+# Language Exclusions
+#-------------------------------------------------
+__pycache__
+*.pyc
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# setup files file
+.coverage
+.env
+coverage.xml
+
+#-------------------------------------------------
+# Build Exclusions
+#-------------------------------------------------
+build
+dist
+target
+temp
+*.egg-info
+
+#-------------------------------------------------
+# Documentation Exclusion
+#-------------------------------------------------
+docs/src/*example
+docs/src/_build
+docs/src/_static
+docs/src/_templates
+
+#-------------------------------------------------
+# IDE Exclusions
+#-------------------------------------------------
+.c9
+.idea
+.project
+.python-version
+.settings
+.vs
+.vscode
+nbproject
+
+#-------------------------------------------------
+# Project Specific Exclusions
+#-------------------------------------------------
+local-*
