@@ -42,7 +42,7 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ matrix.python-version }}
           restore-keys: |
-            ${{ runner.os }}-pip-:
+            ${{ runner.os }}-pip-:-${{ matrix.python-version }}
 
       # Install dependencies
       - name: Install dependencies
@@ -97,7 +97,7 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-:
+            ${{ runner.os }}-pip-:-${{ matrix.python-version }}
 
       # Install dependencies
       - name: Install dependencies
