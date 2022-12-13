@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Falcon cache module."""
 # flake8: noqa
 from .__metadata__ import (

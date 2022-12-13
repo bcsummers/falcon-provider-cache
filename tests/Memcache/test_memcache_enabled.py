@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test middleware memcache provider module."""
 # standard library
 import time
@@ -37,7 +36,7 @@ def test_middleware_get_cache_timeout(client_memcache_enabled: object) -> None:
 
     # assume cache timeout is set to 2 seconds
     time.sleep(3)
-    response = client_memcache_enabled.simulate_get('/middleware', params=params)
+    response: Result = client_memcache_enabled.simulate_get('/middleware', params=params)
 
     assert response.text == 'middleware-worked'
     assert response.status_code == 200

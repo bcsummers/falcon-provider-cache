@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test middleware memcache provider module."""
 # standard library
 import time

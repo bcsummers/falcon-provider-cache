@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 """Cache utility."""
 # standard library
 import hashlib
-from typing import Any, Optional, Union
 
 # third-party
 import falcon
@@ -17,7 +15,7 @@ class CacheProvider:
             or user_id that will be used if private cache is enabled.
     """
 
-    def __init__(self, cache_control: Optional[dict] = None, user_key: Optional[str] = None):
+    def __init__(self, cache_control: dict | None = None, user_key: str | None = None):
         """Initialize class properties
 
         **cache_control**
@@ -67,7 +65,7 @@ class CacheProvider:
         self._cache_control = dict(self._global_cache_control)
         self.user_key = user_key  # the req.context attribute to make cache unique per user
 
-    def cache_control(self, cache_control: Optional[dict] = None) -> dict:
+    def cache_control(self, cache_control: dict | None = None) -> dict:
         """Return cache control settings.
 
         Args:
@@ -166,14 +164,14 @@ class MemcacheProvider(CacheProvider):
 
     def __init__(
         self,
-        cache_control: Optional[dict] = None,
-        user_key: Optional[str] = None,
-        server: Optional[Union[str, tuple]] = None,
+        cache_control: dict | None = None,
+        user_key: str | None = None,
+        server: str | tuple | None = None,
         **kwargs,
     ):
         """Initialize class properties."""
 
-        super(MemcacheProvider, self).__init__(cache_control, user_key)
+        super().__init__(cache_control, user_key)
 
         try:
             # third-party
@@ -189,7 +187,7 @@ class MemcacheProvider(CacheProvider):
 
         self.memcache_client = MemcacheClient(server, **kwargs).client
 
-    def get_cache(self, key: str) -> Any:
+    def get_cache(self, key: str) -> dict | int | list | str:
         """Return cache from memcache
 
         Args:
@@ -200,7 +198,7 @@ class MemcacheProvider(CacheProvider):
         """
         return self.memcache_client.get(key)
 
-    def set_cache(self, key: str, value: str, timeout: Optional[int] = None):
+    def set_cache(self, key: str, value: str, timeout: int | None = None):
         """Write cache to Redis
 
         Args:
@@ -232,16 +230,16 @@ class RedisCacheProvider(CacheProvider):
 
     def __init__(
         self,
-        cache_control: Optional[dict] = None,
-        user_key: Optional[str] = None,
-        host: Optional[str] = None,
-        port: Optional[int] = None,
-        db: Optional[int] = None,
-        blocking_pool: Optional[bool] = False,
+        cache_control: dict | None = None,
+        user_key: str | None = None,
+        host: str | None = None,
+        port: int | None = None,
+        db: int | None = None,
+        blocking_pool: bool | None = False,
         **kwargs,
     ):
         """Initialize class properties."""
-        super(RedisCacheProvider, self).__init__(cache_control, user_key)
+        super().__init__(cache_control, user_key)
 
         try:
             # third-party
@@ -257,7 +255,7 @@ class RedisCacheProvider(CacheProvider):
 
         self.redis_client = RedisClient(host, port, db, blocking_pool, **kwargs).client
 
-    def get_cache(self, key: str) -> Any:
+    def get_cache(self, key: str) -> dict | int | list | str:
         """Return cache from Redis
 
         Args:
@@ -268,7 +266,7 @@ class RedisCacheProvider(CacheProvider):
         """
         return self.redis_client.get(key)
 
-    def set_cache(self, key: str, value: str, timeout: Optional[int] = None):
+    def set_cache(self, key: str, value: str, timeout: int | None = None):
         """Write cache to Redis
 
         Args:

@@ -100,11 +100,11 @@ Memcache
         def on_get(self, req, resp):
             """Support GET method."""
             key = req.get_param('key')
-            resp.body = f'{key}-worked'
+            resp.text = f'{key}-worked'
             resp.status_code = falcon.HTTP_OK
 
     cache_provider = MemcacheProvider(server=(MEMCACHE_HOST, MEMCACHE_PORT))
-    app = falcon.API(middleware=[CacheMiddleware(cache_provider)])
+    app = falcon.App(middleware=[CacheMiddleware(cache_provider)])
     app.add_route('/middleware', MemcacheCachingResource())
 
 -----
@@ -140,11 +140,11 @@ Redis
         def on_get(self, req, resp):
             """Support GET method."""
             key = req.get_param('key')
-            resp.body = f'{key}-worked'
+            resp.text = f'{key}-worked'
             resp.status_code = falcon.HTTP_OK
 
     cache_provider = RedisCacheProvider(host=REDIS_HOST, port=REDIS_PORT, user_key='user_key')
-    app = falcon.API(middleware=[CacheMiddleware(cache_provider)])
+    app = falcon.App(middleware=[CacheMiddleware(cache_provider)])
     app.add_route('/middleware', RedisCacheResource())
 
 -----------
@@ -158,7 +158,7 @@ After cloning the repository, all development requirements can be installed via 
 
 .. code:: bash
 
-    > pip install falcon-provider-cache[dev]
+    > poetry install --with dev --all-extras
     > pre-commit install
 
 Testing
@@ -172,12 +172,13 @@ For Memcache the default host is localhost and the default port is 11211. These 
 
 .. code:: bash
 
+    > poetry install --with dev,test --all-extras
     > pytest --cov=falcon_provider_cache --cov-report=term-missing tests/
 
 .. |build| image:: https://github.com/bcsummers/falcon-provider-cache/workflows/build/badge.svg
     :target: https://github.com/bcsummers/falcon-provider-cache/actions
 
-.. |coverage| image:: https://codecov.io/gh/bcsummers/falcon-provider-cache/branch/master/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/bcsummers/falcon-provider-cache/branch/master/graph/badge.svg?token=JSvtIqwxAw
     :target: https://codecov.io/gh/bcsummers/falcon-provider-cache
 
 .. |code-style| image:: https://img.shields.io/badge/code%20style-black-000000.svg

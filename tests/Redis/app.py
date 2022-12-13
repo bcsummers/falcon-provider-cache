@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Falcon app used for testing."""
 # standard library
 import os
@@ -28,14 +27,15 @@ class RedisResource:
     }
 
     def on_get(
-        self, req: falcon.Request, resp: falcon.Response,
-    ):  # pylint: disable=no-self-use
+        self,
+        req: falcon.Request,
+        resp: falcon.Response,
+    ):
         """Support GET method."""
         key = req.get_param('key')
-        resp.body = 'test'
-        resp.body = f'{key}-worked'  # pylint: disable=no-member
+        resp.text = f'{key}-worked'
         resp.status_code = falcon.HTTP_OK
 
 
-app_redis = falcon.API(middleware=[CacheMiddleware(redis_provider)])
+app_redis = falcon.App(middleware=[CacheMiddleware(redis_provider)])
 app_redis.add_route('/middleware', RedisResource())
