@@ -38,7 +38,7 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          poetry install --with dev,test
+          poetry install --with dev,test --all-extras
 
       # Lint project using pre-commit config
       - name: Lint with pre-commit
@@ -85,7 +85,7 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          poetry install --with dev,test
+          poetry install --with dev,test --all-extras
 
       # Test package and save artifacts
       - name: Test with pytest
