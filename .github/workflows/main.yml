@@ -91,7 +91,7 @@ jobs:
       - name: Test with pytest
         run: >
           poetry run pytest
-          --cov=falcon_provider_audit
+          --cov=falcon_provider_cache
           --cov-report=html:artifacts/cov-report-${{ matrix.os }}-${{ matrix.python-version }}
           --cov-report=xml
           --html=artifacts/test-report-${{ matrix.os }}-${{ matrix.python-version }}.html
