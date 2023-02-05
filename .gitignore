@@ -13,7 +13,7 @@ __pycache__
 venv/
 ENV/
 
-# setup files file
+# setup files
 .coverage
 .env
 coverage.xml

@@ -1,13 +1,106 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
 [tool.black]
 line-length = 100
 skip-string-normalization = true
 
+[tool.isort]
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+import_heading_stdlib = "standard library"
+import_heading_firstparty = "first-party"
+import_heading_thirdparty = "third-party"
+include_trailing_comma = true
+known_third_party = "falcon,pytest"
+line_length = 100
+multi_line_output = 3
+profile = "black"
+use_parentheses = true
+
+[tool.poetry]
+authors = ["Bracey Summers <bcsummers@gmail.com>"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Falcon",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+description = "A falcon middleware cache provider (utils, hooks, and middleware)."
+documentation = "https://github.com/bcsummers/falcon-provider-cache"
+homepage = "https://github.com/bcsummers/falcon-provider-cache"
+keywords = ["cache", "falcon"]
+license = "Apache-2.0"
+maintainers = ["Bracey Summers <bcsummers@gmail.com>"]
+name = "falcon-provider-cache"
+readme = "README.rst"
+repository = "https://github.com/bcsummers/falcon-provider-cache"
+packages = [{include = "falcon_provider_cache"}]
+version = "0.0.1"
+
+[tool.poetry.dependencies]
+falcon = "^3.1.1"
+python = "^3.10"
+
+# extras
+falcon-provider-memcache = {branch = "main", git = "https://github.com/bcsummers/falcon-provider-memcache", optional = true}
+falcon-provider-redis = {branch = "main", git = "https://github.com/bcsummers/falcon-provider-redis", optional = true}
+
+[tool.poetry.extras]
+memcache = ["falcon-provider-memcache"]
+redis = ["falcon-provider-redis"]
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+bandit = "^1.7.4"
+black = "^22.12.0"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+pycodestyle = "^2.10.0"
+pydocstyle = {extras = ["toml"], version = "^6.1.1"}
+pylint = "^2.15.8"
+pyupgrade = "^3.3.1"
+sqlalchemy = "^1.4.45"
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-html = "^3.2.0"
+pytest-xdist = "^3.1.0"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/bcsummers/falcon-provider-cache/issues"
+
+[tool.pydocstyle]
+ignore = "D202,D203,D213,D301,D400,D406,D407,D413,D415"
+
 [tool.pylint.messages_control]
-# C0103 - invalid-name
-# C0330 - bad-continuation
-# R0801 - duplicate-code
-# R0903 - too-few-public-methods
-# R0913 - too-many-arguments
-# W0511 - fixme
-# W1203 - logging-fstring-interpolation
-disable = "C0103,C0330,R0801,R0903,R0913,W0511,W1203"
+disable = [
+    "duplicate-code",  # R0801
+    "fixme",  # W0511
+    "invalid-name",  # C0103
+    "logging-fstring-interpolation",  # W1203
+    "too-few-public-methods",  # R0903
+    "too-many-arguments",  # R0913
+    "too-many-instance-attributes",  # R0902
+]
+extension-pkg-whitelist = "falcon"

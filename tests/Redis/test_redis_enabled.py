@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test middleware redis provider module."""
 # standard library
 import time

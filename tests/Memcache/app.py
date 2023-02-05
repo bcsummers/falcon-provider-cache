@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Falcon app used for testing."""
 # standard library
 import os
@@ -28,15 +27,17 @@ class MemcacheEnableResource:
     }
 
     def on_get(
-        self, req: falcon.Request, resp: falcon.Response,
-    ):  # pylint: disable=no-self-use
+        self,
+        req: falcon.Request,
+        resp: falcon.Response,
+    ):
         """Support GET method."""
         key: str = req.get_param('key')
-        resp.body = f'{key}-worked'
+        resp.text = f'{key}-worked'
         resp.status_code = falcon.HTTP_OK
 
 
-app_memcache_enabled = falcon.API(middleware=[CacheMiddleware(memcache_provider)])
+app_memcache_enabled = falcon.App(middleware=[CacheMiddleware(memcache_provider)])
 app_memcache_enabled.add_route('/middleware', MemcacheEnableResource())
 
 
@@ -52,11 +53,13 @@ class MemcacheGlobalResource:
     }
 
     def on_get(
-        self, req: falcon.Request, resp: falcon.Response,
-    ):  # pylint: disable=no-self-use
+        self,
+        req: falcon.Request,
+        resp: falcon.Response,
+    ):
         """Support GET method."""
-        key: str = req.get_param('key').split(',')[0]
-        resp.body = f'{key}-worked'
+        key: str = req.get_param_as_list('key')[0]
+        resp.text = f'{key}-worked'
         resp.status_code = falcon.HTTP_OK
 
 
@@ -79,7 +82,7 @@ memcache_provider_global_cache_control = MemcacheProvider(
     user_key='user_id',
     server=(MEMCACHE_HOST, MEMCACHE_PORT),
 )
-app_memcache_global = falcon.API(
+app_memcache_global = falcon.App(
     middleware=[CacheMiddleware(memcache_provider_global_cache_control)]
 )
 app_memcache_global.add_route('/middleware', MemcacheGlobalResource())

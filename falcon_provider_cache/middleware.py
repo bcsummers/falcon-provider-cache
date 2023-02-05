@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Falcon cache provider middleware module."""
 # third-party
 import falcon
@@ -44,7 +43,7 @@ class CacheMiddleware:
                 # cache is best effort, process normally if cache not available
                 cache_data = None
                 if hasattr(resource, 'log'):
-                    resource.log.error(f'[cache-provider] Failled reading from cache ({e}).')
+                    resource.log.error(f'[cache-provider] Failed reading from cache ({e}).')
 
             if cache_data is not None:
                 resp.context.setdefault('cache_data', cache_data)
@@ -66,12 +65,12 @@ class CacheMiddleware:
                 if resp.context.get('cache_data') is not None:
                     # set body to cached data and stop response
                     resp.set_header('X-Cache', 'HIT')  # update x-cache header for HIT (from cache)
-                    resp.body = resp.context.get('cache_data')
-                elif resp.body is not None:
+                    resp.text = resp.context.get('cache_data')
+                elif resp.text is not None:
                     # cache data
                     try:
-                        self.provider.set_cache(cache_key, resp.body)
+                        self.provider.set_cache(cache_key, resp.text)
                     except Exception as e:  # pragma: no cover; pylint: disable=broad-except
                         # cache is best effort, process normally if cache not available
                         if hasattr(resource, 'log'):
-                            resource.log.error(f'[cache-provider] Failled writing to cache ({e}).')
+                            resource.log.error(f'[cache-provider] Failed writing to cache ({e}).')

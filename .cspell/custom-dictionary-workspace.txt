@@ -1,0 +1,13 @@
+# Custom Dictionary Words
+autofix
+Bracey
+codespell
+getenv
+isort
+NODELAY
+pydocstyle
+pylint
+pytest
+pyupgrade
+setex
+userid
